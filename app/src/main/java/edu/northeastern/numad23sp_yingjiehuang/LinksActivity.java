@@ -10,5 +10,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class LinksActivity extends AppCompatActivity {
+    RecyclerView linkRecyclerView;
+
+    List<Link> linkList;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_links);
+
+        linkList = new ArrayList<>();
+
+        linkRecyclerView = findViewById(R.id.link_recycler_view);
+
+        linkRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        linkRecyclerView.setAdapter(new LinkAdapter(linkList, this));
+
+    }
 
 }
