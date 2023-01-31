@@ -20,24 +20,24 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         button1 = (Button) findViewById(R.id.button_send);
         button2 = (Button) findViewById(R.id.clicky);
+        button3 = (Button) findViewById(R.id.links);
 
         button1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getApplicationContext(), "Yingjie Huang, huang.yingj@northeastern.edu", Toast.LENGTH_LONG).show();//display the text of button
-                // startActivity(new Intent(MainActivity.this, DetailActivity.class));
+                // Toast.makeText(getApplicationContext(), "Yingjie Huang, huang.yingj@northeastern.edu", Toast.LENGTH_LONG).show();//display the text of button
+                startActivity(new Intent(MainActivity.this, AboutActivity.class));
             }
         });
 
         button2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // Toast.makeText(getApplicationContext(), "Yingjie Huang, huang.yingj@northeastern.edu", Toast.LENGTH_LONG).show();//display the text of button
                 startActivity(new Intent(MainActivity.this, DetailActivity.class));
             }
         });
 
-        button2.setOnClickListener(new View.OnClickListener() {
+        button3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(MainActivity.this, LinksActivity.class));
