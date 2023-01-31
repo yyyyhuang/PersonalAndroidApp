@@ -22,21 +22,14 @@ public class LinkAdapter extends RecyclerView.Adapter<LinkViewHolder> {
     @NonNull
     @Override
     public LinkViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new LinkViewHolder(LayoutInflater.from(context).inflate(R.layout.item_link, null));
+        return new LinkViewHolder(LayoutInflater.from(context).inflate(R.layout.item_link, parent, false));
     }
 
     @Override
     public void onBindViewHolder(@NonNull LinkViewHolder holder, int position) {
         holder.name.setText(link.get(position).getName());
-
         holder.url.setText(String.valueOf(link.get(position).getUrl()));
 
-        /*
-        holder.itemView.setOnClickListener(view -> {
-            Toast.makeText(context, people.get(position).getName(), Toast.LENGTH_SHORT).show();
-        });
-
-         */
     }
 
     @Override
