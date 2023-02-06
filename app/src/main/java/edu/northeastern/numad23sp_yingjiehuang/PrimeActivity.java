@@ -72,7 +72,7 @@ public class PrimeActivity extends AppCompatActivity {
         outState.putInt("current_prime", current_prime);
     }
 
-    
+
     class differentThread extends Thread {
         int c;
 
@@ -119,7 +119,9 @@ public class PrimeActivity extends AppCompatActivity {
 
         }
     }
-
+    
+    // handle back button pressed
+    @Override
 
 
 
