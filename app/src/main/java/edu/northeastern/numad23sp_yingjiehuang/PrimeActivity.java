@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.os.Handler;
 import android.annotation.SuppressLint;
+import android.widget.Toast;
 
 public class PrimeActivity extends AppCompatActivity {
 
@@ -16,6 +17,7 @@ public class PrimeActivity extends AppCompatActivity {
     TextView current, latest_prime;
     Button find, terminate;
     differentThread t;
+    Toast backtoast;
 
     int start = 3;
     int current_prime = 2;
@@ -39,6 +41,12 @@ public class PrimeActivity extends AppCompatActivity {
             current.setText("current number being check is " + start);
             current_prime = savedInstanceState.getInt("current_prime");
             latest_prime.setText("latest prime is " + current_prime);
+            running = savedInstanceState.getBoolean("running");
+            if (running){
+                t = new differentThread(start);
+                t.start();
+            }
+
         }
 
         find.setOnClickListener(new View.OnClickListener() {
@@ -70,6 +78,7 @@ public class PrimeActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         outState.putInt("start", start);
         outState.putInt("current_prime", current_prime);
+        outState.putBoolean("running", running);
     }
 
 
@@ -119,9 +128,21 @@ public class PrimeActivity extends AppCompatActivity {
 
         }
     }
-    
+
     // handle back button pressed
     @Override
+    public void onBackPressed() {
+        if(running) {
+            if(backtoast!=null&&backtoast.getView().getWindowToken()!=null) {
+                finish();
+            } else {
+                backtoast = Toast.makeText(this, "Press back again to exit", Toast.LENGTH_SHORT);
+                backtoast.show();
+            }
+        } else {
+            super.onBackPressed();
+        }
+    }
 
 
 

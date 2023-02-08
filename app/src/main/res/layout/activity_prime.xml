@@ -37,7 +37,7 @@
         android:layout_height="22dp"
         android:layout_marginTop="40dp"
         android:gravity="center"
-        android:text="for now"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/find" />
@@ -48,7 +48,7 @@
         android:layout_height="22dp"
         android:layout_marginTop="40dp"
         android:gravity="center"
-        android:text="for now"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/number" />
