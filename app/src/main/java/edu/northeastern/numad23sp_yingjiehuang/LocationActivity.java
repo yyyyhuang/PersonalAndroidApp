@@ -28,9 +28,9 @@ public class LocationActivity extends AppCompatActivity {
     private static final int PERMISSIONS_FINE_LOCATION = 9;
 
     public LocationManager locationManager;
-    Button reset, getLocation;
+    Button reset;
     TextView lat,lon, dist;
-    double latitude, longitude, change;
+    double latitude = 0, longitude = 0, change = 0;
     boolean startLocation, locGrant;
 
     @Override
@@ -38,29 +38,33 @@ public class LocationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location);
 
-        latitude = 0;
-        longitude = 0;
-
         reset = (Button) findViewById(R.id.reset);
-        getLocation = (Button) findViewById(R.id.getLocation);
+        // getLocation = (Button) findViewById(R.id.getLocation);
         lat = findViewById(R.id.latitude);
         lon = findViewById(R.id.longitude);
         dist = findViewById(R.id.distance);
         locationManager = (LocationManager) this.getSystemService(Context.LOCATION_SERVICE);
 
-        if(startLocation) {requestLocation();}
+        if(savedInstanceState != null) {
+            latitude = savedInstanceState.getDouble("latitude");
+            longitude = savedInstanceState.getDouble("longitude");
+            change = savedInstanceState.getDouble("change");
+            startLocation = savedInstanceState.getBoolean("startLocation");
+        }
 
-        getLocation.setOnClickListener(new View.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onClick(View view) {
-                startLocation = true;
-                requestLocation();
-                if(locGrant){
-                    Toast.makeText(LocationActivity.this, "updating", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+        if(startLocation) {requestLocation();}
+        requestLocation();
+        if(locGrant){
+            Toast.makeText(LocationActivity.this, "updating", Toast.LENGTH_SHORT).show();
+        }
+
+//        getLocation.setOnClickListener(new View.OnClickListener() {
+//            @RequiresApi(api = Build.VERSION_CODES.M)
+//            @Override
+//            public void onClick(View view) {
+//                startLocation = true;
+//            }
+//        });
 
         reset.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,10 +76,19 @@ public class LocationActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    public void onSaveInstanceState(@NonNull Bundle outState){
+        super.onSaveInstanceState(outState);
+        outState.putDouble("latitude", latitude);
+        outState.putDouble("longitude",longitude);
+        outState.putDouble("change", change);
+        outState.putBoolean("startLocation", startLocation);
+    }
 
     public void requestLocation() {
         if (ContextCompat.checkSelfPermission(LocationActivity.this,
                 Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
+            startLocation = true;
             locGrant = true;
             LocationListener locationListener = new LocationListener() {
                 @Override
